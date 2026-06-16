@@ -2,9 +2,8 @@
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
-
 def main():
-    """Основная функция программы FitLife."""
+   
     # 1. Знакомство
     user_name = input("Введите Ваше имя: ")
     user_age = input("Сколько вам лет? ")
