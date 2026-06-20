@@ -7,24 +7,22 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
 
-def validate_positive_int(value_str):
+def validate_positive_int(value):
     """
     Проверяет, что строка является целым положительным числом.
     Если проверка пройдена, возвращает число (int).
     Иначе выбрасывает ValueError с пояснением.
     """
-    value = int(value_str)
     if value <= 0:
         raise ValueError("Число должно быть положительным")
     return value
 
 
-def validate_positive_float(value_str):
+def validate_positive_float(value):
     """
     Проверяет, что строка является положительным числом с плавающей точкой.
     Возвращает число (float) или выбрасывает ValueError.
     """
-    value = float(value_str)
     if value <= 0:
         raise ValueError("Значение должно быть больше нуля")
     return value
@@ -39,29 +37,29 @@ def main():  # noqa: C901  # подавляем предупреждение о 
     while True:
         try:
             user_age = int(input("Сколько вам лет? "))
-            if validate_positive_int(user_age):
-                print(f"Вы ввели возраст: {user_age} лет")
-                break
+            user_age = validate_positive_int(user_age)
+            print(f"Вы ввели возраст: {user_age} лет")
+            break
         except ValueError as e:
-            print(e)
+            print(f"Ошибка: {e}")
 
     while True:
         try:
             user_weight = float(input("Каков ваш вес (в кг)? "))
-            if validate_positive_float(user_weight):
-                print(f"Вы ввели значение веса: {user_weight} кг")
-                break
+            user_weight = validate_positive_float(user_weight)
+            print(f"Вы ввели значение веса: {user_weight} кг")
+            break
         except ValueError as e:
-            print(e)
+            print(f"Ошибка: {e}")
 
     while True:
         try:
             user_height = float(input("Введите рост в метрах через точку: "))
-            if validate_positive_float(user_height):
-                print(f"Вы ввели значение роста: {user_height} м")
-                break
+            user_height = validate_positive_float(user_height)
+            print(f"Вы ввели значение роста: {user_height} м")
+            break
         except ValueError as e:
-            print(e)
+            print(f"Ошибка: {e}")
 
     #  Вычисления
     # Индекс массы тела (формула Кетле)
