@@ -13,10 +13,10 @@ def validate_positive_int(value_str):
     Если проверка пройдена, возвращает число (int).
     Иначе выбрасывает ValueError с пояснением.
     """
-    value = int(value_str)          # преобразуем строку в целое число
-    if value <= 0:                  # если число не положительное
+    value = int(value_str)
+    if value <= 0:
         raise ValueError("Число должно быть положительным")
-    return value                    # возвращаем валидное значение
+    return value
 
 
 def validate_positive_float(value_str):
@@ -24,8 +24,8 @@ def validate_positive_float(value_str):
     Проверяет, что строка является положительным числом с плавающей точкой.
     Возвращает число (float) или выбрасывает ValueError.
     """
-    value = float(value_str)        # преобразуем строку в дробное число
-    if value <= 0:                  # ноль или отрицательное недопустимы
+    value = float(value_str)
+    if value <= 0:
         raise ValueError("Значение должно быть больше нуля")
     return value
 
@@ -35,59 +35,47 @@ def main():  # noqa: C901  # подавляем предупреждение о 
     Основная функция программы.
     Последовательно запрашивает данные, выполняет расчёты и возвращает отчёт.
     """
-    # 1. Запрос имени (без валидации)
     user_name = input("Введите ваше имя: ")
-
-    # 2. Ввод возраста с повторными попытками при ошибке
     while True:
-        age_str = input("Сколько вам лет? ")
         try:
-            # вызываем валидатор, который может выбросить исключение
-            user_age = validate_positive_int(age_str)
-            # если дошли до этой строки – ввод корректен
-            print(f"Вы ввели возраст: {user_age} лет")
-            break                     # выходим из цикла
-        except ValueError as e:
-            print(e)                  # сообщение об ошибке и повтор цикла
-
-    # 3. Ввод веса (аналогично)
-    while True:
-        weight_str = input("Каков ваш вес (в кг)? ")
-        try:
-            user_weight = validate_positive_float(weight_str)
-            print(f"Вы ввели значение веса: {user_weight} кг")
-            break
+            user_age = int(input("Сколько вам лет? "))
+            if validate_positive_int(user_age):
+                print(f"Вы ввели возраст: {user_age} лет")
+                break
         except ValueError as e:
             print(e)
 
-    # 4. Ввод роста (аналогично)
     while True:
-        height_str = input("Введите рост в метрах через точку: ")
         try:
-            user_height = validate_positive_float(height_str)
-            print(f"Вы ввели значение роста: {user_height} м")
-            break
+            user_weight = float(input("Каков ваш вес (в кг)? "))
+            if validate_positive_float(user_weight):
+                print(f"Вы ввели значение веса: {user_weight} кг")
+                break
         except ValueError as e:
             print(e)
 
-    # 5. Вычисления
+    while True:
+        try:
+            user_height = float(input("Введите рост в метрах через точку: "))
+            if validate_positive_float(user_height):
+                print(f"Вы ввели значение роста: {user_height} м")
+                break
+        except ValueError as e:
+            print(e)
+
+    #  Вычисления
     # Индекс массы тела (формула Кетле)
     bmi = round(user_weight / (user_height ** 2), 1)
     # Рекомендуемая норма воды: 30 мл на 1 кг веса, переводим в литры
     water_need_l = round(user_weight * 30 / 1000, 1)
 
-    # 6. Формирование итоговой строки-отчёта с помощью f-строк
-    return (
-        f"\nПривет, {user_name}!"
-        f"\nОтчет для пользователя:"
-        f"\n{user_name} ({user_age} л.)"
-        f"\nИндекс массы вашего тела: {bmi}"
-        f"\nРекомендуемая норма воды: {water_need_l} л в день"
-        f"\nРасчет окончен. Будьте здоровы!"
-    )
+    #  Формирование итоговой строки-отчета с помощью f-строк
+    return f"""Привет, {user_name}!
+Отчет для пользователя:
+Индекс массы вашего тела: {bmi}
+Рекомендуемая норма воды: {water_need_l} л в день
+Расчет окончен. Будьте здоровы!"""
 
 
-# Точка входа: если файл запущен напрямую, а не импортирован как модуль,
-# вызываем main() и печатаем результат
 if __name__ == "__main__":
     print(main())
