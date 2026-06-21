@@ -4,7 +4,7 @@
 import sys
 
 # Настройка кодировки вывода для корректного отображения кириллицы в Windows
-sys.stdout.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding="utf-8")
 
 
 def validate_positive_int(value):
@@ -15,7 +15,6 @@ def validate_positive_int(value):
     """
     if value <= 0:
         raise ValueError("Число должно быть положительным")
-    return value
 
 
 def validate_positive_float(value):
@@ -25,7 +24,6 @@ def validate_positive_float(value):
     """
     if value <= 0:
         raise ValueError("Значение должно быть больше нуля")
-    return value
 
 
 def main():  # noqa: C901  # подавляем предупреждение о сложности
@@ -37,7 +35,7 @@ def main():  # noqa: C901  # подавляем предупреждение о 
     while True:
         try:
             user_age = int(input("Сколько вам лет? "))
-            user_age = validate_positive_int(user_age)
+            validate_positive_int(user_age)
             print(f"Вы ввели возраст: {user_age} лет")
             break
         except ValueError as e:
@@ -46,7 +44,7 @@ def main():  # noqa: C901  # подавляем предупреждение о 
     while True:
         try:
             user_weight = float(input("Каков ваш вес (в кг)? "))
-            user_weight = validate_positive_float(user_weight)
+            validate_positive_float(user_weight)
             print(f"Вы ввели значение веса: {user_weight} кг")
             break
         except ValueError as e:
@@ -55,7 +53,7 @@ def main():  # noqa: C901  # подавляем предупреждение о 
     while True:
         try:
             user_height = float(input("Введите рост в метрах через точку: "))
-            user_height = validate_positive_float(user_height)
+            validate_positive_float(user_height)
             print(f"Вы ввели значение роста: {user_height} м")
             break
         except ValueError as e:
@@ -63,7 +61,7 @@ def main():  # noqa: C901  # подавляем предупреждение о 
 
     #  Вычисления
     # Индекс массы тела (формула Кетле)
-    bmi = round(user_weight / (user_height ** 2), 1)
+    bmi = round(user_weight / (user_height**2), 1)
     # Рекомендуемая норма воды: 30 мл на 1 кг веса, переводим в литры
     water_need_l = round(user_weight * 30 / 1000, 1)
 
